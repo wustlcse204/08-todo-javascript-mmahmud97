@@ -1,0 +1,81 @@
+:root {
+  background-color: silver;
+
+}
+
+* {
+  box-sizing: border-box;
+}
+
+* button{
+  border-color: white;
+  background-color: lightblue;
+}
+
+.Title{
+  text-align: center;
+  color: lightblue;
+}
+
+.ceter {
+  max-width: 500px;
+  margin: auto;
+  background-color: white;
+  border-style: groove;
+}
+.input{
+  text-align: center;
+}
+
+#input_button{
+  position: relative;
+  display: block;
+  margin: auto;
+  background-color: white;
+  font-size: 20.5px;
+  border: 2px;
+  border-color: black;
+  left: 1%;
+  width: 30px;
+  height: 25px;
+}
+
+#input_button:hover{
+  border: 4px;
+  transform: scale(1.1);
+
+}
+
+#input{
+  position: relative;
+  display: block;
+  margin: auto;
+  left: 1%;
+  background-color: white;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  position: relative;
+  font-size: 20px;
+  padding: 12px 8px 12px 40px;
+  background: lightblue;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+ul li:nth-child(odd) {
+  background: lightblue;
+}
+
+ul li.checked {
+  text-decoration: line-through;
+}
+
+ul li:hover {
+  background: lightgreen;
+}
