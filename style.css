@@ -42,13 +42,14 @@
 
 #input_button:hover{
   border: 4px;
-  transform: scale(1.1);
+  transform: scale(1.2);
 
 }
 
 #input{
   position: relative;
   display: block;
+  border-color: lightblue;
   margin: auto;
   left: 1%;
   background-color: white;

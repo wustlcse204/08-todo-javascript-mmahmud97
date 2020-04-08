@@ -8,11 +8,11 @@ var xhttp = new XMLHttpRequest();
 
 xhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
-    var todos = JSON.parse(this.responseText);
-    console.log(todos);
-    console.log(todos.length);
-      for (var i=0; i<todos.length; i++){
-        createNewTodo(todos[i]);
+    var response = JSON.parse(this.responseText);
+    console.log(response);
+    console.log(response.length);
+      for (var i=0; i<response.length; i++){
+        createNewTodo(response[i]);
     }
   }
 };
@@ -22,7 +22,7 @@ xhttp.setRequestHeader("x-api-key", api);
 xhttp.send();
 }
 
-function createNewTodo(info){
+function createNewTodo(response){
 
   var tick = document.createElement("input");
   tick.setAttribute("type", "checkbox");
@@ -30,10 +30,10 @@ function createNewTodo(info){
   tick.style.top = "15px";
   tick.style.left = "5px";
 
-  var textTODO = info.text;
-  var idTODO = info.id;
+  var textTODO = response.text;
+  var idTODO = response.id;
   var todo = document.createElement("LI");
-  todo.innerHTML = info.text;
+  todo.innerHTML = response.text;
 
   var remove = document.createElement("button");
   remove.innerHTML = "Delete Item";
@@ -41,11 +41,11 @@ function createNewTodo(info){
   remove.style.top = "15px";
   remove.style.left = "30px";
 
-  if (info.completed == true){
+  if (response.completed == true){
     tick.checked = true;
     todo.style.textDecoration = "line-through";
   }
-  else if(info.completed == false){
+  else if(response.completed == false){
     tick.check = false;
     todo.style.textDecoration = "none";
   }
@@ -57,17 +57,20 @@ function createNewTodo(info){
   todo.appendChild(tick);
   todo.appendChild(remove);
 
-  console.log(info.id);
+  console.log(response.id);
   tick.addEventListener("click", function(event){putToDo(idTODO)});
 
   remove.addEventListener("click", function(event){deleteTODO(idTODO)});
 }
 
 
+document.getElementById("123").addEventListener("submit", addNewTodo);
 //THIS IS WHERE I CALL CLICK FUNCTION AND IT ADDS THE TO DO TO THE SCREE
-document.getElementById("input_button").addEventListener("click", function(event){addNewTodo()});
+//document.getElementById("123").addEventListener("click", function(event){addNewTodo()});
 
-function addNewTodo(){
+function addNewTodo(e){
+  console.log("alert");
+  e.preventDefault();
   var data = {
     text: document.getElementById("input").value
   }
@@ -76,6 +79,7 @@ function addNewTodo(){
     if (this.readyState == 4 && this.status == 200) {
       var todo = JSON.parse(this.responseText);
       createNewTodo(todo);
+
     } else if (this.readyState == 4) {
       console.log(this.responseText);
 
@@ -92,8 +96,8 @@ function addNewTodo(){
 
 }
 
-function putToDo(the_id){
-  var complete_id = the_id;
+function putToDo(id){
+  var complete_id = id;
   var xhttp4 = new XMLHttpRequest();
   var data = {
     completed: true
@@ -113,8 +117,8 @@ function putToDo(the_id){
 }
 
 
-function deleteTODO(the_id){
-  var remove_id = the_id;
+function deleteTODO(id){
+  var remove_id = id;
   var xhttp3 = new XMLHttpRequest();
   xhttp3.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {

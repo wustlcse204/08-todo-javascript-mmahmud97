@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <meta name="keywords" content="ToDo">
+  <meta charset="utf-8">
   <style>
     P {text-align: center}
   </style>
   <title>Assignment 8</title>
   <script src="https://kit.fontawesome.com/c999f73f84.js" ></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
   <!-- Required meta tags -->
-  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
@@ -19,17 +18,18 @@
   <div class="Title">
     <h1>To-Do:</h1>
   </div>
-  <div class="input_form" id>
-    <form method="post">
-      <input type="text" class="form-control" style = "display: block;" name="input_1" id="input" placeholder="Add a to-do"
-      onclick="this.select()" onKeyDown="if(event.keyCode==13) alert(5);" >
+  <div class="formDiv">
+    <form method="post" id = "123" >
+      <input type = "image" src = bg.jpg id = "input_button" alt = "submit">
+      <br>
+      <input type="text" class="form-control" style = "display: block;" name="input_1" id="input" placeholder="Add a to-do">
     </form>
     <br>
   </div>
-  <div class="Input" id="input_text">
+   <!-- <div class="Input" id="input_text">
     <img src = "bg.jpg" style = "display: block;" id="input_button">
     <br>
-  </div>
+  </div> -->
   <br>
   <div class="TheList">
     <ul style= "list-style-type:none;" id="List">
