@@ -1,45 +1,24 @@
-
 var api = "d4ea7d-98bc97-0ab0ba-0bbdc5-df5e18";
+main(api);
 
-ListAllTodos();
-
-function ListAllTodos(){
-var xhttp = new XMLHttpRequest();
-
-xhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var response = JSON.parse(this.responseText);
-    console.log(response);
-    console.log(response.length);
-      for (var i=0; i<response.length; i++){
-        createNewTodo(response[i]);
-    }
-  }
-};
-
-xhttp.open("GET", "https://cse204.work/todos", true);
-xhttp.setRequestHeader("x-api-key", api);
-xhttp.send();
+function main(api){
+  document.getElementById("123").addEventListener("submit", addNewTodo);
+  ListAllTodos();
 }
 
 function createNewTodo(response){
-
   var tick = document.createElement("input");
+  var todo = document.createElement("LI");
+  var remove = document.createElement("button");
+  todo.innerHTML = response.text;
+  remove.innerHTML = "Delete";
+  remove.style.position = "absolute";
+  remove.style.top = "14px";
   tick.setAttribute("type", "checkbox");
   tick.style.position = "absolute";
-  tick.style.top = "15px";
-  tick.style.left = "5px";
-
-  var textTODO = response.text;
-  var idTODO = response.id;
-  var todo = document.createElement("LI");
-  todo.innerHTML = response.text;
-
-  var remove = document.createElement("button");
-  remove.innerHTML = "Delete Item";
-  remove.style.position = "absolute";
-  remove.style.top = "15px";
-  remove.style.left = "30px";
+  tick.style.top = "13px";
+  tick.style.left = "7px";
+  remove.style.left = "28px";
 
   if (response.completed == true){
     tick.checked = true;
@@ -49,24 +28,15 @@ function createNewTodo(response){
     tick.check = false;
     todo.style.textDecoration = "none";
   }
-
-  var element = document.getElementById("List");
-  todo.setAttribute("id", idTODO);
-  todo.setAttribute("text", textTODO);
+  var element = document.getElementById("todos");
+  todo.setAttribute("id", response.id);
   element.appendChild(todo);
   todo.appendChild(tick);
   todo.appendChild(remove);
-
   console.log(response.id);
-  tick.addEventListener("click", function(event){putToDo(idTODO)});
-
-  remove.addEventListener("click", function(event){deleteTODO(idTODO)});
+  tick.addEventListener("click", function(event){putToDo(response.id)});
+  remove.addEventListener("click", function(event){deleteTODO(response.id)});
 }
-
-
-document.getElementById("123").addEventListener("submit", addNewTodo);
-//THIS IS WHERE I CALL CLICK FUNCTION AND IT ADDS THE TO DO TO THE SCREE
-//document.getElementById("123").addEventListener("click", function(event){addNewTodo()});
 
 function addNewTodo(e){
   console.log("alert");
@@ -79,19 +49,15 @@ function addNewTodo(e){
     if (this.readyState == 4 && this.status == 200) {
       var todo = JSON.parse(this.responseText);
       createNewTodo(todo);
-
     } else if (this.readyState == 4) {
       console.log(this.responseText);
-
     }
   };
 
   xhttp2.open("POST", "https://cse204.work/todos", true);
-
   xhttp2.setRequestHeader("Content-type", "application/json");
   xhttp2.setRequestHeader("x-api-key", api);
   xhttp2.send(JSON.stringify(data));
-
   document.getElementById("input").value = "";
 
 }
@@ -131,4 +97,22 @@ function deleteTODO(id){
   xhttp3.setRequestHeader("Content-type", "application/json");
   xhttp3.setRequestHeader("x-api-key", api);
   xhttp3.send();
+}
+
+function ListAllTodos(){
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {     //getting data...once data received
+  if (this.readyState == 4 && this.status == 200) {
+    var response = JSON.parse(this.responseText); //
+    console.log(response);  //sending to the console //irrelevant
+    console.log(response.length); //response is a list of b
+      for (var item=0; item < response.length; item++){
+        createNewTodo(response[item]);
+    }
+  }
+};
+
+xhttp.open("GET", "https://cse204.work/todos", true);
+xhttp.setRequestHeader("x-api-key", api);
+xhttp.send();
 }
